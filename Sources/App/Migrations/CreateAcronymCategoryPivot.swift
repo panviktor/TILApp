@@ -1,0 +1,21 @@
+//
+//  CreateAcronymCategoryPivot.swift
+//  
+//
+//  Created by Viktor on 23.09.2020.
+//
+import Fluent
+
+struct CreateAcronymCategoryPivot: Migration {
+    func prepare(on database: Database) -> EventLoopFuture<Void> {
+        database.schema("acronym-category-pivot")
+            .id()
+            .field("acronymID", .uuid, .required, .references("acronyms", "id", onDelete: .cascade))
+            .field("categoriesID", .uuid, .required, .references("categories", "id", onDelete: .cascade))
+            .create()
+    }
+    
+    func revert(on database: Database) -> EventLoopFuture<Void> {
+        database.schema("acronym-category-pivot").delete()
+    }
+}
