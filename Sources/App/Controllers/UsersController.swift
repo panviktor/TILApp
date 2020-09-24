@@ -9,7 +9,6 @@
 import Vapor
 
 struct UsersController: RouteCollection {
-    
     func boot(routes: RoutesBuilder) throws {
         let usersRoute = routes.grouped("api", "users")
         usersRoute.post(use: createHandler)
@@ -32,10 +31,8 @@ struct UsersController: RouteCollection {
     }
     
     func getAcronymsHandler(_ req: Request) throws -> EventLoopFuture<[Acronym]> {
-        User.find(req.parameters.get("userID"), on: req.db)
-            .unwrap(or: Abort(.notFound))
-            .flatMap { user in
-                user.$acronyms.get(on: req.db)
-            }
+        User.find(req.parameters.get("userID"), on: req.db).unwrap(or: Abort(.notFound)).flatMap { user in
+            user.$acronyms.get(on: req.db)
+        }
     }
 }

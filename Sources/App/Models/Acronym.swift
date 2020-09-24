@@ -1,9 +1,3 @@
-//
-//  Acronym.swift
-//  
-//
-//  Created by Viktor on 22.09.2020.
-//
 
 import Vapor
 import Fluent
@@ -22,6 +16,9 @@ final class Acronym: Model {
     
     @Parent(key: "userID")
     var user: User
+    
+    @Siblings(through: AcronymCategoryPivot.self, from: \.$acronym, to: \.$category)
+    var categories: [Category]
     
     init() {}
     

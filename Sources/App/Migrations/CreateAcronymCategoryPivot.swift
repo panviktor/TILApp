@@ -11,7 +11,7 @@ struct CreateAcronymCategoryPivot: Migration {
         database.schema("acronym-category-pivot")
             .id()
             .field("acronymID", .uuid, .required, .references("acronyms", "id", onDelete: .cascade))
-            .field("categoriesID", .uuid, .required, .references("categories", "id", onDelete: .cascade))
+            .field("categoryID", .uuid, .required, .references("categories", "id", onDelete: .cascade))
             .create()
     }
     
